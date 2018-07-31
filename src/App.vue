@@ -33,4 +33,7 @@ export default {
 .el-button+.el-button{
   margin-left: 0;
 }
+  ul li{
+    list-style: none;
+  }
 </style>

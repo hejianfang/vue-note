@@ -10,4 +10,5 @@ export default {
   finddetails:"/api/noteList/title",
   pinglun:"/api/get/allrepley",
   pinglundetial:"/api/get/detilsrepley",
+  userchange:"/api/userchange",
 }

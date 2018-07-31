@@ -24,6 +24,7 @@
                 <li>邮箱：{{email}}</li>
                 <li>欢迎{{name}}使用</li>
                 <button @click="handleExit">退出登录</button>
+                <button @click="handlemessage">修改信息</button>
               </ul>
           </div>
         </div>
@@ -85,6 +86,9 @@
       handlejump(val){
         this.$router.push({path: '/details',query:{id:val}})
       },
+      handlemessage(){
+       this.$router.push('/userschange')
+      },
       gatallnote(){
         this.$axios.get("allnoteList").then(res=>{
           this.newarr = res.data.data
@@ -125,8 +129,6 @@
           }
           this.$axios.post("login", params).then(res => {
             if (res.data.code == 200) {
-              cookies.set('name', res.data.data.name, { expires: 14 });
-              cookies.set('email', res.data.data.email, { expires: 14 });
               this.show();
             }
           })
@@ -140,10 +142,6 @@
         if(name&&email){
           this.name = name;
           this.email = email
-        }else{
-          this.name = ''
-          this.email = ''
-          this.pwd = ''
         }
       }
     },
@@ -204,6 +202,7 @@
             background-color: rgb(103,198,54);
             color: #fff;
             font-size: 16px;
+            margin-bottom: 10px;
           }
         }
       }

@@ -11,14 +11,15 @@
     <div class="title">
       <p v-html="conent"></p>
     </div>
-       <span>评论:</span><input type="text" v-model="pinglun">
-        <button @click="submt">提交</button>
     <ul>
       <li v-for="item in arr">
-        {{item.name}}:{{item.conent}}
+        <span>{{item.name}}</span>
+        <span>:</span>
+        <span>{{item.conent}}</span>
       </li>
     </ul>
-
+    <span>评论:</span><input type="text" v-model="pinglun">
+    <button @click="submt">提交</button>
   </div>
 </div>
 </template>
@@ -38,7 +39,8 @@
             pinglun:'',
             id:'',
             userid:'',
-            arr:''
+            arr:'',
+            newname:''
           }
       },
       methods:{
@@ -46,16 +48,17 @@
             let _id = this.$route.query.id;
             this.$axios.get("notedetail",{_id}).then(res=>{
               this.name=res.data.data.name
-              this.update=res.data.data.update
+              this.newname = res.data.users.name
               this.conent=res.data.data.conent
               this.title=res.data.data.title
-              this.id=res.data.data._id,
-                this.userid = res.data.data.id
+              this.id = res.data.data._id,
+              this.userid = res.data.data.id
+              this.update = res.data.data.update
             })
           },
         submt(){
           let id = this.id;
-          let name = this.name
+          let name = this.newname
           let conent = this.pinglun
           let userId = this.userid
           if(conent.trim()){
@@ -110,6 +113,22 @@
     text-indent: 2em;
     line-height: 2em;
     letter-spacing: 1px;
+  }
+  ul{
+    li{
+      margin: 10px 0;
+      padding: 5px 10px;
+      background-color: #eee;
+      border-radius: 5px;
+    }
+    li span:first-child{
+      border-radius: 5px;
+      padding: 3px 5px;
+    }
+    list span:last-child{
+      margin-left: 10px;
+
+    }
   }
 }
 </style>

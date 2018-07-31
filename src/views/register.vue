@@ -21,6 +21,7 @@
 </template>
 
 <script>
+  import cookies from  'js-cookie'
   import Header from "../components/Header"
     export default {
         name: "register",
@@ -45,6 +46,8 @@
           this.$axios.post("register",params).then(res=>{
             this.code = res.data.code;
             if(res.data.code==200){
+              cookies.set('name', res.data.data.name, { expires: 14 });
+              cookies.set('email', res.data.data.email, { expires: 14 });
               this.$router.push('/')
             }
           })

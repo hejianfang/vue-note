@@ -5,7 +5,8 @@ import search from '@/views/search'
 import writes from '@/views/writes'
 import Details from '@/views/Details'
 import register from '@/views/register'
-import test1 from '@/views/test1'
+import picup from '@/views/picup'
+import userschange from '@/views/userschange'
 
 Vue.use(Router)
 
@@ -37,9 +38,14 @@ export default new Router({
       component: register
     },
     {
-      path: '/test1',
-      name: 'test1',
-      component: test1
-    }
+      path: '/picup',
+      name: 'picup',
+      component: picup
+    }, {
+      path: '/userschange',
+      name: 'userschange',
+      component: userschange
+    },
+
   ]
 })
