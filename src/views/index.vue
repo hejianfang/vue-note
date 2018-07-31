@@ -20,6 +20,7 @@
           </div>
           <div v-show="name">
               <ul>
+                <img :src="avatar" >
                 <li> 用户名：{{name}}</li>
                 <li>邮箱：{{email}}</li>
                 <li>欢迎{{name}}使用</li>
@@ -35,7 +36,7 @@
       <div class="wrap" v-for="item in newarr">
        <div class="clearflex">
          <div class="fll">
-           <img src="../assets/img/20180426151433.jpg" >
+           <img :src="item.pic">
          </div>
          <div class="flr">
            <div class="top">{{item.name}} | <span style="cursor: pointer" @click="handlejump(item._id)">{{item.title}}</span></div>
@@ -74,7 +75,8 @@
         name:'',
         email: '',
         pwd: "",
-        newarr:''
+        newarr:'',
+        avatar:''
       }
     },
     methods: {
@@ -97,10 +99,6 @@
       getmsg(){
         this.$axios.get('getmsg').then(res=>{
           if(res.data.code == 401){
-            let name =  this.name
-            let email = this.email
-            cookies.remove('name')
-            cookies.remove('email')
             this.show();
           }
         })
@@ -111,15 +109,14 @@
       handleExit(){
         console.log(1);
         this.$axios.get("exitlogin").then(res=>{
-          if(res.data.code == 200){
             let name =  this.name
             let email = this.email
+            let avatar = this.avatar
             cookies.remove('name')
             cookies.remove('email')
+            cookies.remove('avatar')
             this.show();
-          }
         })
-        this.getmsg();
       },
       handleLogin() {
         if (!((this.email.indexOf(' ') != -1) && (this.pwd.indexOf(' ') != -1))) {
@@ -129,6 +126,9 @@
           }
           this.$axios.post("login", params).then(res => {
             if (res.data.code == 200) {
+              cookies.set('name', res.data.data.name, { expires: 14 });
+              cookies.set('email', res.data.data.email, { expires: 14 });
+              cookies.set('avatar', res.data.data.avatar, { expires: 14 });
               this.show();
             }
           })
@@ -139,16 +139,22 @@
       show(){
         let name = cookies.get("name")
         let email = cookies.get("email")
+        let avatar = cookies.get("avatar")
         if(name&&email){
           this.name = name;
           this.email = email
+          this.avatar = avatar
+        }else{
+          this.name = '';
+          this.email = ''
+          this.avatar = ''
         }
       }
     },
     mounted() {
       this.getdata();
       this.show();
-      this.getmsg();
+      // this.getmsg();
       this.gatallnote();
     }
   }
@@ -189,6 +195,12 @@
         background-color: #fff;
         padding: 10px;
         ul{
+          img{
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            margin-left:90px ;
+          }
           li{
             list-style: none;
             margin: 10px 20px;

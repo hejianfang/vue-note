@@ -48,8 +48,8 @@
             if(res.data.code==200){
               cookies.set('name', res.data.data.name, { expires: 14 });
               cookies.set('email', res.data.data.email, { expires: 14 });
-              this.$router.push('/')
             }
+            this.$router.push('/')
           })
         },
         handleclick(){
