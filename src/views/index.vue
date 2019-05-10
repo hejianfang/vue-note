@@ -96,13 +96,6 @@
           this.newarr = res.data.data
         })
       },
-      getmsg(){
-        this.$axios.get('getmsg').then(res=>{
-          if(res.data.code == 401){
-            this.show();
-          }
-        })
-      },
       handleClick() {
         this.$router.push("/register")
       },
@@ -125,7 +118,7 @@
             pwd: this.pwd
           }
           this.$axios.post("login", params).then(res => {
-            if (res.data.code == 200) {
+            if (res.data.code == 201||res.data.code == 200) {
               cookies.set('name', res.data.data.name, { expires: 14 });
               cookies.set('email', res.data.data.email, { expires: 14 });
               cookies.set('avatar', res.data.data.avatar, { expires: 14 });
@@ -154,7 +147,6 @@
     mounted() {
       this.getdata();
       this.show();
-      // this.getmsg();
       this.gatallnote();
     }
   }

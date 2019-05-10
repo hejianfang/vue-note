@@ -8,7 +8,7 @@
       <div class="wrap" v-for="item in newarr">
         <div class="clearflex">
           <div class="fll">
-            <img src="../assets/img/20180426151433.jpg" >
+            <img :src="item.pic" >
           </div>
           <div class="flr">
             <div class="top">{{item.name}} | <span style="cursor: pointer" @click="handlejump(item._id)">{{item.title}}</span></div>

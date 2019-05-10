@@ -39,7 +39,7 @@
         })
       },
       getToken() {
-        axios.get('http://11.yaojunrong.com/api/client/upload').then(res => {
+        axios.get('/pic').then(res => {
           this.token = res.data.data;
         })
       },
@@ -50,6 +50,7 @@
     watch:{
       img(){
         this.$emit('event',this.img )
+        this.$emit('imge',this.img )
       }
     },
     created() {
@@ -82,6 +83,5 @@
   }
   .icon-jiahao {
     font-size: 60px;
-    color: #fff;
   }
 </style>

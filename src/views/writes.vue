@@ -6,9 +6,14 @@
         <h2>标题</h2>
         <input type="text" v-model="title">
       </div>
+      <div class="pic">
+        <pic @imge="getimg">
+        </pic>
+        <button @click = "getswiper">生成轮播图</button>
+      </div>
       <div>
         <h2>内容</h2>
-        <test @content="getdata"></test>
+        <test @content="getdata" @contents="getdatas"></test>
       </div>
       <div>
         <span>标签</span><span><input type="text" v-model="classify" style="width: 20%;"></span>
@@ -21,42 +26,61 @@
 <script>
   import Header from "../components/Header"
   import test from '../components/test'
+  import pic from '../components/pic'
 
   export default {
     name: "writes",
     components: {
-      Header,test
+      Header,test,pic
     },
     data() {
       return {
         title: '',
         conent: '',
-        classify: ''
+        conents: '',
+        classify: '',
+        pic:''
       }
     },
     methods: {
-      getdata(editorContent){
-        this.conent = editorContent
+      getdata(pam){
+        this.conent = pam
+      },
+      getdatas(pam1){
+        this.conents = pam1
+      },
+      getimg(val){
+        this.pic = val
+      },
+      getswiper(){
+        let params = {
+          title : this.title,
+          pic:this.pic,
+          content:this.conent,
+        }
+        this.$axios.post('swipers',params).then(res=>{
+          if (res.data.code == 200) {
+            alert('生成成功')
+          }
+        })
       },
       handleClick() {
         let parms = {
           title: this.title,
           conent: this.conent,
+          conents:this.conents,
           classify: this.classify
         }
         this.$axios.post('addnote', parms).then(res => {
           if (res.data.code == 200) {
             alert('发布成功')
-            this.title = '',
-              this.conent = '',
-              this.classify = ''
+            this.$router.push('/')
           }
         })
       }
     }
   }
 </script>
-
 <style scoped lang="less">
   .wrap {
     width: 60%;
@@ -71,6 +95,19 @@
       outline: none;
       padding-left: 10px;
     }
+    .pic{
+      button{
+        width: 370px;
+        height: 40px;
+        outline: none;
+        border-radius: 5px;
+        border: none;
+        background-color: rgb(103,198,54);
+        color: #fff;
+        font-size: 16px;
+        margin-left: 230px;
+      }
+    }
     textarea {
       width: 100%;
       height: 300px;
@@ -82,5 +119,16 @@
     span {
       color: rgb(57, 141, 238);
     }
+
+  }
+  .wrap button{
+    width: 70px;
+    height: 40px;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(103,198,54);
+    color: #fff;
+    font-size: 16px;
   }
 </style>

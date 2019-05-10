@@ -7,6 +7,7 @@ import Details from '@/views/Details'
 import register from '@/views/register'
 import picup from '@/views/picup'
 import userschange from '@/views/userschange'
+import textt from '@/views/textt'
 
 Vue.use(Router)
 
@@ -45,7 +46,14 @@ export default new Router({
       path: '/userschange',
       name: 'userschange',
       component: userschange
-    },
-
+    },{
+      path: '/textt',
+      name: 'textt',
+      component:textt
+    },{
+      path: '/Progress',
+      name: 'Progress',
+      component:()=>import('@/views/Progress/Progress')
+    }
   ]
 })

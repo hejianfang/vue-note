@@ -16,7 +16,7 @@ export default {
   padding: 0;
 }
   html{
-    background-color: rgb(245,245,245);
+    /*background-color: rgb(245,245,245);*/
   }
 .el-input{
   display: inline-block;

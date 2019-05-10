@@ -3,8 +3,6 @@
     <Header></Header>
     <pic @event="accept"></pic>
     <div class="box">
-      <el-input placeholder="用户名" v-model="username"></el-input>
-      <el-input placeholder="邮箱" v-model="email" :disabled="true"></el-input>
       <el-input placeholder="密码" v-model="pwd" type="password"></el-input>
       <el-input placeholder="确认密码" v-model="newpwd" type="password"></el-input>
       <el-button type="primary" @click="handleChange">确认</el-button>
@@ -23,8 +21,6 @@
       },
         data(){
           return{
-            username:'',
-            email:'',
             pwd:'',
             newpwd:'',
             avatar:''
@@ -36,8 +32,6 @@
         },
         handleChange(){
           let params ={
-            name:this.username,
-            email:this.email,
             newpwd:this.newpwd,
             pwd:this.pwd,
             avatar:this.avatar
@@ -45,26 +39,25 @@
           if(this.newpwd == this.pwd){
             this.$axios.post('userchange',params).then(res=>{
               if(res.data.code == 200){
-                cookies.set('name', res.data.data.name, { expires: 14 });
-                cookies.set('email', res.data.data.email, { expires: 14 });
-                cookies.set('avatar', res.data.data.avatar, { expires: 14 });
+                this.$router.push('/')
               }
             })
           }else{
             alert('密码不一致')
           }
+        },
+        show(){
+          let name =  this.name
+          let email = this.email
+          let avatar = this.avatar
+          cookies.remove('name')
+          cookies.remove('email')
+          cookies.remove('avatar')
         }
       },
-      mounted(){
-        let name = cookies.get("name")
-        let email = cookies.get("email")
-        let avatar = cookies.get("avatar")
-        cookies.remove('avatar')
-        if(name&&email){
-          this.username = name;
-          this.email = email;
-        }
-      }
+    mounted(){
+          this.show();
+    }
     }
 </script>
 
