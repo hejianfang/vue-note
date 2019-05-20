@@ -16,7 +16,7 @@
       return {
         line: 0,
         height: 10,
-        probar: 30,
+        probar: 80,
         aShow: true,
         color: 'blue'
       }
@@ -48,10 +48,10 @@
             transition: width 1s ease;
             animation: line 1s linear;
             @keyframes line {
-              0% {
+              from {
                 width: 0;
               }
-              100% {
+              to {
                 width: -100%;
               }
             }
